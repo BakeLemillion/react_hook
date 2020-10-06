@@ -4,31 +4,36 @@ import axios from "axios";
 import useFetch from "../../../hooks/useFetch";
 
 const Authentication = (props) => {
-  const isLogin = props.match.path === '/login'
-  const pageTitle = isLogin ? "Sign In" : "Sign Up"
-  const descriptionLink = isLogin ? "/register" : "/login"
-  const descriptionText = isLogin ? "Need an account ?" : 'Have an account ?'
-  const apiUrl = isLogin ? "/users/login" : "/users"
-
+  const isLogin = props.match.path === "/login";
+  const pageTitle = isLogin ? "Sign In" : "Sign Up";
+  const descriptionLink = isLogin ? "/register" : "/login";
+  const descriptionText = isLogin ? "Need an account ?" : "Have an account ?";
+  const apiUrl = isLogin ? "/users/login" : "/users";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState('')
-  const [{ responce, isLoading, error }, doFetch] = useFetch(apiUrl);
-
-  console.log("Our isLogin", isLogin, apiUrl);
+  const [username, setUsername] = useState("");
+  const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("data", email, password);
-    const user = isLogin ? {email, password} : {email, password, username}
+    const user = isLogin ? { email, password } : { email, password, username };
     doFetch({
       method: "post",
       data: {
-        user
+        user,
       },
     });
   };
+
+  useEffect(() => {
+    // if (!responce) {
+    //   return;
+    // }
+    // localStorage.setItem("token", responce.user.token);
+    console.log("response, ", response);
+  }, []);
 
   return (
     <div className="auth-page">
@@ -37,22 +42,21 @@ const Authentication = (props) => {
           <div className="col-md-6 offset-md-3 col-xs-12">
             <h1 className="text-xs-center">{pageTitle}</h1>
             <p className="text-xs-center">
-  <Link to={descriptionLink}>{descriptionText}</Link>
+              <Link to={descriptionLink}>{descriptionText}</Link>
             </p>
             <form onSubmit={handleSubmit}>
               <fieldset>
                 {!isLogin && (
                   <fieldset className="form-group">
-                  <input
-                    type="text"
-                    className="form-control form-control-lg"
-                    placeholder="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </fieldset>
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      placeholder="Username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                  </fieldset>
                 )}
-
 
                 <fieldset className="form-group">
                   <input

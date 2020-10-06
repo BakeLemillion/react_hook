@@ -30,5 +30,5 @@ export default (url) => {
       });
   }, [isLoading]);
 
-  return [{ isLoading, response, error }, doFetch];
+  return [{ response, isLoading, error }, doFetch];
 };
