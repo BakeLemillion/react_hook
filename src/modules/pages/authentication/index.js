@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, Redirect } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
+import useLocalStorage from "../../../hooks/useLocalStorage";
 
 const Authentication = (props) => {
   const isLogin = props.match.path === "/login";
@@ -13,7 +13,11 @@ const Authentication = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [isSuccessfullSubmit, setSuccessfullSubmit] = useState(false);
   const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl);
+  const [token, setToken] = useLocalStorage("token");
+
+  console.log("token", token);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,12 +32,17 @@ const Authentication = (props) => {
   };
 
   useEffect(() => {
-    // if (!responce) {
-    //   return;
-    // }
-    // localStorage.setItem("token", responce.user.token);
+    if (!response) {
+      return;
+    }
+    setToken(response.user.token);
+    setSuccessfullSubmit(true);
     console.log("response, ", response);
-  }, []);
+  }, [response, setToken]);
+
+  if (isSuccessfullSubmit) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div className="auth-page">

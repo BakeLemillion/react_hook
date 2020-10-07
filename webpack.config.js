@@ -6,7 +6,7 @@ module.exports = {
   mode: "development",
   output: {
     filename: "./main.js",
-    chunkFilename: "[name].bundle.js"
+    chunkFilename: "[name].bundle.js",
   },
   devServer: {
     contentBase: path.join(__dirname, "dist"),
@@ -20,8 +20,8 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: "[name].css",
-      chunkFilename: "[id].css"
-    })
+      chunkFilename: "[id].css",
+    }),
   ],
   module: {
     rules: [
@@ -31,7 +31,11 @@ module.exports = {
         use: {
           loader: "babel-loader",
         },
-        
+      },
+      {
+        test: /\.js$/,
+        enforce: "pre",
+        use: ["source-map-loader"],
       },
       {
         test: /\.css$/,
@@ -40,15 +44,15 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              modules: true
-            }
-          }
-        ]
+              modules: true,
+            },
+          },
+        ],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: ["file-loader"]
-      }
-    ]
-  }
+        use: ["file-loader"],
+      },
+    ],
+  },
 };
