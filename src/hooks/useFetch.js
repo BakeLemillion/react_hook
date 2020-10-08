@@ -28,7 +28,7 @@ export default (url) => {
         setIsLoading(false);
         setError(err.response);
       });
-  }, [isLoading]);
+  }, [isLoading, options, url]);
 
   return [{ response, isLoading, error }, doFetch];
 };
