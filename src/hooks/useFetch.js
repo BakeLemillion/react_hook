@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import useLocalStorage from "./useLocalStorage";
 
@@ -11,10 +11,10 @@ export default (url) => {
   const [token] = useLocalStorage("token");
   console.log("token React", token);
 
-  const doFetch = (options = {}) => {
+  const doFetch = useCallback((options = {}) => {
     setOptions(options);
     setIsLoading(true);
-  };
+  }, []);
 
   useEffect(() => {
     const requestOptions = {
@@ -39,7 +39,7 @@ export default (url) => {
         setIsLoading(false);
         setError(err.response);
       });
-  }, [isLoading, options, url]);
+  }, [isLoading, options, url, token]);
 
   return [{ response, isLoading, error }, doFetch];
 };
