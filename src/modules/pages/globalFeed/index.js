@@ -2,8 +2,11 @@ import React, { Fragment, useEffect } from "react";
 import Feed from "../../../component/feed";
 import useFetch from "../../../hooks/useFetch";
 import Pagination from '../../../component/pagination'
+import PopularTags from '../../../component/popularTags'
 import {getPaginator, limit} from '../../../utils'
 import {stringify} from 'query-string'
+import IsLoading from "../../../component/loading";
+import ErrorMessage from "../../../component/ErrorMessage";
 
 const GlobalFeed = ({location, match}) => {
   const {offset, currentPage} = getPaginator(location.search)
@@ -31,8 +34,8 @@ const GlobalFeed = ({location, match}) => {
       <div className="container page">
         <div className="row">
           <div className="col-md-9">
-            {isLoading && <div>isLoading...</div>}
-            {error && <div>Some error happend</div>}
+            {isLoading && <IsLoading />}
+            {error && <ErrorMessage />}
             {!isLoading && response && (
               <Fragment>
                 <Feed articles={response.articles} />
@@ -40,7 +43,9 @@ const GlobalFeed = ({location, match}) => {
               </Fragment>
             ) }
           </div>
-          <div className="col-md-3">Popular tags</div>
+          <div className="col-md-3">
+            <PopularTags />
+          </div>
         </div>
       </div>
     </div>
