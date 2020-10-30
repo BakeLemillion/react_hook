@@ -7,6 +7,7 @@ import {getPaginator, limit} from '../../../utils'
 import {stringify} from 'query-string'
 import IsLoading from "../../../component/loading";
 import ErrorMessage from "../../../component/ErrorMessage";
+import FeedToggler from '../../../component/feedToggler'
 
 const GlobalFeed = ({location, match}) => {
   const {offset, currentPage} = getPaginator(location.search)
@@ -34,6 +35,7 @@ const GlobalFeed = ({location, match}) => {
       <div className="container page">
         <div className="row">
           <div className="col-md-9">
+            <FeedToggler />
             {isLoading && <IsLoading />}
             {error && <ErrorMessage />}
             {!isLoading && response && (
