@@ -4,11 +4,13 @@ import GlobalFeed from "./pages/globalFeed/index"
 import Article from "./pages/artical/index"
 import Authentication from "./pages/authentication"
 import TagFeed from './pages/tagFeed'
+import YourFeed from './pages/yourFeed'
 
 export default () => {
     return (
         <Switch>
             <Route exact path="/" component={GlobalFeed} />
+            <Route exact path="/feed" component={YourFeed} />
             <Route exact path="/tags/:slug" component={TagFeed} />
             <Route exact path="/login" component={Authentication} />
             <Route exact path="/register" component={Authentication} />
