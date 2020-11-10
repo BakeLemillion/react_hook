@@ -22,8 +22,6 @@ const PopularTags = () => {
         )
     }
 
-    console.log('response', response)
-
     return (
         <div className='sidebar'>
             <p>Popular tags</p>

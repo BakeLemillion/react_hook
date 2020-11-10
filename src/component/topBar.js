@@ -5,7 +5,6 @@ import { CurrentUserContext } from "../context/currentUser";
 
 const TopBar = () => {
   const [currentUserState] = useContext(CurrentUserContext);
-  console.log("currentUserState 13465", currentUserState);
   return (
     <nav className="navbar navbar-light">
       <div className="container">
