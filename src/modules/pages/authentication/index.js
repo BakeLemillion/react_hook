@@ -20,8 +20,6 @@ const Authentication = (props) => {
   const [token, setToken] = useLocalStorage("token");
   const [, dispatch] = useContext(CurrentUserContext);
 
-  console.log("currentUserState 13-10-2020", currentUserState);
-
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("data", email, password);

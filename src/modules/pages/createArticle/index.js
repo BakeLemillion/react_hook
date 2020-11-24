@@ -1,5 +1,5 @@
 import React from "react";
-import ArticleForm from "../../../component/article";
+import ArticleForm from "../../../component/articleForm";
 
 const CreateArticle = () => {
   const errors = {};
